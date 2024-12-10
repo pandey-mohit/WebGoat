@@ -19,12 +19,22 @@ steps:
 - task: wiz@0
   inputs:
     command: 'image'
-    clientid: '$(WIZ_CLIENT_ID)'
-    secret: '$(WIZ_CLIENT_SECRET)'
+    clientid: $(WIZ_CLIENT_ID)
+    secret: $(WIZ_CLIENT_SECRET)
     image: 'golang:latest'
     policyHitsOnly: true
     driver: 'mountWithLayers'
-    
-- task: trivy@1
-  inputs:
-    version: 'latest'
+
+# - task: wiz@0  
+#   inputs:  
+#      command: 'image'  
+#      clientid: $(WIZ_CLIENT_ID)  
+#      secret: $(WIZ_CLIENT_SECRET)  
+#      succeedOnFailures: false  
+#      policyHitsOnly: true  
+#      scanTags: 'cicd=ado,build=56,golang'  
+#      image: 'golang:latest'  
+#      scanPolicies: 'vuln-one-critical, vuln-two-high'  
+#      scanSecrets: false  
+#      driver: 'mountWithLayers'  
+#      sudo: true
