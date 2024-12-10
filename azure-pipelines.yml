@@ -55,9 +55,12 @@ steps:
      secret: $(WIZ_CLIENT_SECRET)
      succeedOnFailures: false
      policyHitsOnly: true
-     scanTags: 'cicd=ado,build=56,golang'
+     scanTags: 'webgoat/webgoat'
      image: 'webgoat/webgoat'
      scanPolicies: 'vuln-one-critical, vuln-two-high'
      scanSecrets: false
-     driver: 'mountWithLayers'
-     sudo: true
+     driver: extract
+    #  driver: 'mountWithLayers'
+    #  sudo: true
+
+
