@@ -38,6 +38,8 @@ steps:
     Dockerfile: '**/Dockerfile'
     tags: 'webgoat/webgoat'
 
+- script: |
+    docker images
 
 # - task: wiz@0
 #   inputs:
