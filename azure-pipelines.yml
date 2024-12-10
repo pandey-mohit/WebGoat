@@ -16,25 +16,25 @@ steps:
 - script: echo Hello, world!
   displayName: 'Run a one-line script'
 
+# - task: wiz@0
+#   inputs:
+#     command: 'image'
+#     clientid: $(WIZ_CLIENT_ID)
+#     secret: $(WIZ_CLIENT_SECRET)
+#     image: 'golang:latest'
+#     policyHitsOnly: true
+#     driver: 'mountWithLayers'
+
 - task: wiz@0
   inputs:
-    command: 'image'
-    clientid: $(WIZ_CLIENT_ID)
-    secret: $(WIZ_CLIENT_SECRET)
-    image: 'golang:latest'
-    policyHitsOnly: true
-    driver: 'mountWithLayers'
-
-# - task: wiz@0  
-#   inputs:  
-#      command: 'image'  
-#      clientid: $(WIZ_CLIENT_ID)  
-#      secret: $(WIZ_CLIENT_SECRET)  
-#      succeedOnFailures: false  
-#      policyHitsOnly: true  
-#      scanTags: 'cicd=ado,build=56,golang'  
-#      image: 'golang:latest'  
-#      scanPolicies: 'vuln-one-critical, vuln-two-high'  
-#      scanSecrets: false  
-#      driver: 'mountWithLayers'  
-#      sudo: true
+     command: 'image'
+     clientid: $(WIZ_CLIENT_ID)
+     secret: $(WIZ_CLIENT_SECRET)
+     succeedOnFailures: false
+     policyHitsOnly: true
+     scanTags: 'cicd=ado,build=56,golang'
+     image: 'golang:latest'
+     scanPolicies: 'vuln-one-critical, vuln-two-high'
+     scanSecrets: false
+     driver: 'mountWithLayers'
+     sudo: true
