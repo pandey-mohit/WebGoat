@@ -52,7 +52,7 @@ steps:
     # scanTags: 'node'
     # image: 'node:22'
     scanTags: 'cicd=ado,webgoat'
-    image: webgoat/$(Build.BuildId)
+    image: webgoat:$(Build.BuildId)
     scanPolicies: 'vuln-one-critical, vuln-two-high'
     scanSecrets: false
     driver: 'mountWithLayers'
