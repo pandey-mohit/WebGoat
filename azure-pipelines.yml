@@ -56,7 +56,7 @@ steps:
      succeedOnFailures: false
      policyHitsOnly: true
      scanTags: 'cicd=ado,build=56,golang'
-     image: 'golang:latest'
+     image: 'webgoat/webgoat'
      scanPolicies: 'vuln-one-critical, vuln-two-high'
      scanSecrets: false
      driver: 'mountWithLayers'
