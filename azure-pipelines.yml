@@ -35,7 +35,7 @@ steps:
   inputs:
     command: 'build'
     Dockerfile: '**/Dockerfile'
-    repository: 'webogoat'
+    repository: 'webgoat'
     tags: $(Build.BuildId)
 
 - script: |
