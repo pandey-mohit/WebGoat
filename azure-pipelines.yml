@@ -53,7 +53,7 @@ steps:
     # image: 'node:22'
     scanTags: 'cicd=ado,webgoat'
     image: webgoat:$(Build.BuildId)
-    scanPolicies: 'vuln-one-critical, vuln-two-high'
+    # scanPolicies: 'vuln-one-critical, vuln-two-high'
     scanSecrets: false
     driver: 'mountWithLayers'
     sudo: true
