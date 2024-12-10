@@ -57,8 +57,8 @@ steps:
      secret: $(WIZ_CLIENT_SECRET)
      succeedOnFailures: false
      policyHitsOnly: true
-     scanTags: 'webgoat/webgoat'
-     image: 'webgoat/webgoat'
+     scanTags: 'node'
+     image: 'node:22'
      scanPolicies: 'vuln-one-critical, vuln-two-high'
      scanSecrets: false
      driver: extract
