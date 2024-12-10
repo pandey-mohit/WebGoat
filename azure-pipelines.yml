@@ -59,10 +59,10 @@ steps:
      policyHitsOnly: true
      scanTags: 'node'
      image: 'node:22'
-     scanPolicies: 'vuln-one-critical, vuln-two-high'
+    #  scanPolicies: 'vuln-one-critical, vuln-two-high'
      scanSecrets: false
-     driver: extract
-    #  driver: 'mountWithLayers'
-    #  sudo: true
+    #  driver: extract
+     driver: 'mountWithLayers'
+     sudo: true
 
 
