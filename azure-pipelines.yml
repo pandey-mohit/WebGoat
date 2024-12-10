@@ -42,7 +42,8 @@ steps:
   inputs:
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
-    tags: 'webgoat/$(Build.BuildId)'
+    repository: 'webogoat'
+    tags: $(Build.BuildId)
 
 - script: |
     docker images
