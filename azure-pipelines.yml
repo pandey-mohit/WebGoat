@@ -16,53 +16,50 @@ steps:
 # - script: echo Hello, world!
 #   displayName: 'Run a one-line script'
 
-# - task: JavaToolInstaller@1
-#   inputs:
-#     versionSpec: '21'
-#     jdkArchitectureOption: 'x64'
-#     jdkSourceOption: 'PreInstalled'
+- task: JavaToolInstaller@1
+  inputs:
+    versionSpec: '21'
+    jdkArchitectureOption: 'x64'
+    jdkSourceOption: 'PreInstalled'
 
-# - task: Maven@4
-#   inputs:
-#     mavenPomFile: 'pom.xml'
-#     goals: 'clean install'
-#     publishJUnitResults: false
-#     javaHomeOption: 'JDKVersion'
-#     mavenVersionOption: 'Default'
-#     mavenAuthenticateFeed: false
-#     effectivePomSkip: false
-#     sonarQubeRunAnalysis: false
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'clean install'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
 # - task: Docker@2
 #   inputs:
-#     command: 'build'
+#     command: 'buildAndPush'
 #     Dockerfile: '**/Dockerfile'
 #     tags: 'webgoat/webgoat'
+    
+- task: Docker@2
+  inputs:
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: 'webgoat/$(Build.BuildId)'
 
 - script: |
     docker images
 
 # - task: wiz@0
 #   inputs:
-#     command: 'image'
-#     clientid: $(WIZ_CLIENT_ID)
-#     secret: $(WIZ_CLIENT_SECRET)
-#     image: 'golang:latest'
-#     policyHitsOnly: true
-#     driver: 'mountWithLayers'
-
-- task: wiz@0
-  inputs:
-     command: 'image'
-     clientid: $(WIZ_CLIENT_ID)
-     secret: $(WIZ_CLIENT_SECRET)
-     succeedOnFailures: false
-     policyHitsOnly: true
-     scanTags: 'node'
-     image: 'node:22'
-    #  scanPolicies: 'vuln-one-critical, vuln-two-high'
-     scanSecrets: false
-    #  driver: extract
-     driver: 'mountWithLayers'
-     sudo: true
+#      command: 'image'
+#      clientid: $(WIZ_CLIENT_ID)
+#      secret: $(WIZ_CLIENT_SECRET)
+#      succeedOnFailures: false
+#      policyHitsOnly: true
+#      scanTags: 'cicd=ado,webgoat'  
+#     #  scanTags: 'node'
+#     #  image: 'node:22'
+#      scanPolicies: 'vuln-one-critical, vuln-two-high'
+#      scanSecrets: false
+#      driver: 'mountWithLayers'
+#      sudo: true
 
 
