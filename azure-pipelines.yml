@@ -49,16 +49,15 @@ steps:
     secret: $(WIZ_CLIENT_SECRET)
     succeedOnFailures: false
     policyHitsOnly: true
-    scanTags: 'node'
-    image: 'node:22'
-    # scanTags: 'cicd=ado,webgoat'
-    # image: webgoat:$(Build.BuildId)
+    # scanTags: 'node'
+    # image: 'node:22'
+    scanTags: 'cicd=ado,webgoat'
+    image: webgoat:$(Build.BuildId)
     # scanPolicies: 'vuln-one-critical, vuln-two-high'
     scanSecrets: false
     sensitiveData: true
     driver: 'mountWithLayers'
     sudo: true
-    output: json
   continueOnError: true
 
 # - task: wiz@0
