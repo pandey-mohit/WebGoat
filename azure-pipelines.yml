@@ -42,36 +42,35 @@ steps:
     docker images
   displayName: Validate Docker Image
 
-- task: wiz@0
-  inputs:
-    command: 'image'
-    clientid: $(WIZ_CLIENT_ID)
-    secret: $(WIZ_CLIENT_SECRET)
-    succeedOnFailures: false
-    policyHitsOnly: true
-    # scanTags: 'node'
-    # image: 'node:22'
-    scanTags: 'cicd=ado,webgoat'
-    image: webgoat:$(Build.BuildId)
-    # scanPolicies: 'vuln-one-critical, vuln-two-high'
-    scanSecrets: false
-    sensitiveData: true
-    driver: 'mountWithLayers'
-    sudo: true
-  continueOnError: true
+# - task: wiz@0
+#   inputs:
+#     command: 'image'
+#     clientid: $(WIZ_CLIENT_ID)
+#     secret: $(WIZ_CLIENT_SECRET)
+#     succeedOnFailures: false
+#     policyHitsOnly: true
+#     # scanTags: 'node'
+#     # image: 'node:22'
+#     scanTags: 'cicd=ado,webgoat'
+#     image: webgoat:$(Build.BuildId)
+#     # scanPolicies: 'vuln-one-critical, vuln-two-high'
+#     scanSecrets: false
+#     sensitiveData: true
+#     driver: 'mountWithLayers'
+#     sudo: true
+#   continueOnError: true
 
-- task: wiz@0
-  inputs:
-    command: 'tag'
-    clientid: $(WIZ_CLIENT_ID)
-    secret: $(WIZ_CLIENT_SECRET)
-    image: webgoat:$(Build.BuildId)
-  continueOnError: true
+# - task: wiz@0
+#   inputs:
+#     command: 'tag'
+#     clientid: $(WIZ_CLIENT_ID)
+#     secret: $(WIZ_CLIENT_SECRET)
+#     image: webgoat:$(Build.BuildId)
+#   continueOnError: true
 
 - task: trivy@1
   displayName: Trivy - Scan the local project
   inputs:
-    version: 
     debug: true
     path: '.'
 
