@@ -55,5 +55,14 @@ steps:
     image: webgoat:$(Build.BuildId)
     # scanPolicies: 'vuln-one-critical, vuln-two-high'
     scanSecrets: false
+    sensitiveData: true
     driver: 'mountWithLayers'
     sudo: true
+  continueOnError: true
+
+- task: wiz@0
+  inputs:
+    command: 'tag'
+    clientid: $(WIZ_CLIENT_ID)
+    secret: $(WIZ_CLIENT_SECRET)
+    image: webgoat:$(Build.BuildId)
