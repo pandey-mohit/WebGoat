@@ -14,29 +14,29 @@ pool:
 
 steps:
 
-# - task: JavaToolInstaller@1
-#   inputs:
-#     versionSpec: '21'
-#     jdkArchitectureOption: 'x64'
-#     jdkSourceOption: 'PreInstalled'
+- task: JavaToolInstaller@1
+  inputs:
+    versionSpec: '21'
+    jdkArchitectureOption: 'x64'
+    jdkSourceOption: 'PreInstalled'
 
-# - task: Maven@4
-#   inputs:
-#     mavenPomFile: 'pom.xml'
-#     goals: 'clean install'
-#     publishJUnitResults: false
-#     javaHomeOption: 'JDKVersion'
-#     mavenVersionOption: 'Default'
-#     mavenAuthenticateFeed: false
-#     effectivePomSkip: false
-#     sonarQubeRunAnalysis: false
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'clean install'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
     
-# - task: Docker@2
-#   inputs:
-#     command: 'build'
-#     Dockerfile: '**/Dockerfile'
-#     repository: 'webgoat'
-#     tags: $(Build.BuildId)
+- task: Docker@2
+  inputs:
+    command: 'build'
+    Dockerfile: '**/Dockerfile'
+    repository: 'webgoat'
+    tags: $(Build.BuildId)
 
 - script: |
     docker images
@@ -60,16 +60,13 @@ steps:
     sudo: true
   continueOnError: true
 
-# - task: wiz@0
-#   inputs:
-#     command: 'tag'
-#     clientid: $(WIZ_CLIENT_ID)
-#     secret: $(WIZ_CLIENT_SECRET)
-#     image: webgoat:$(Build.BuildId)
-#   continueOnError: true
-  
-
-
+- task: wiz@0
+  inputs:
+    command: 'tag'
+    clientid: $(WIZ_CLIENT_ID)
+    secret: $(WIZ_CLIENT_SECRET)
+    image: webgoat:$(Build.BuildId)
+  continueOnError: true
 
 # - task: trivy@1
 #   displayName: Trivy - Scan the local project
