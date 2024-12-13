@@ -42,7 +42,7 @@ steps:
 #     docker images
 #   displayName: Validate Docker Image
 
-- script: ls -ltr
+# - script: mkdir $(System.DefaultWorkingDirectory)/wiz
 
 - task: wiz@0
   inputs:
@@ -68,9 +68,10 @@ steps:
 
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(System.DefaultWorkingDirectory)'
-    artifact: 'wiz-output.json'
+    targetPath: '$(System.DefaultWorkingDirectory)/wiz-output.json'
+    artifact: 'security-tools'
     publishLocation: 'pipeline'
+
 
 
 # - task: wiz@0
