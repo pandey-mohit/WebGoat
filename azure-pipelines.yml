@@ -69,6 +69,11 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'Docker Hub'
+    command: 'login'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'Docker Hub'
     command: 'push'
     repository: 'webgoat'
     tags: $(Build.BuildId)
