@@ -64,6 +64,14 @@ steps:
   continueOnError: true
 
 - script: ls -ltr && cat ./wiz-output.json
+- script: cat $(Pipeline.Workspace) && $(Pipeline.Workspace)/wiz-output.json
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '$(Pipeline.Workspace)'
+    artifact: 'wiz-output.json'
+    publishLocation: 'pipeline'
+
+
 # - task: wiz@0
 #   inputs:
 #     command: 'tag'
