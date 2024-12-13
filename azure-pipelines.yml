@@ -56,18 +56,19 @@ steps:
     # scanTags: 'cicd=ado,webgoat'
     # image: webgoat:$(Build.BuildId)
     # scanPolicies: 'vuln-one-critical, vuln-two-high'
-    output: './wiz-output.json,json'
+    output: '$(System.DefaultWorkingDirectory)/wiz-output.json,json'
     scanSecrets: false
     sensitiveData: true
     driver: 'mountWithLayers'
     sudo: true
   continueOnError: true
 
-- script: ls -ltr && cat ./wiz-output.json
-- script: cat $(Pipeline.Workspace) && $(Pipeline.Workspace)/wiz-output.json
+- script: $(System.DefaultWorkingDirectory) && cat $(System.DefaultWorkingDirectory)/wiz-output.json
+
+
 - task: PublishPipelineArtifact@1
   inputs:
-    targetPath: '$(Pipeline.Workspace)'
+    targetPath: '$(System.DefaultWorkingDirectory)'
     artifact: 'wiz-output.json'
     publishLocation: 'pipeline'
 
