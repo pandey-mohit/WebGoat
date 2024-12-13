@@ -13,71 +13,70 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
-
-# - task: JavaToolInstaller@1
-#   inputs:
-#     versionSpec: '21'
-#     jdkArchitectureOption: 'x64'
-#     jdkSourceOption: 'PreInstalled'
-
-# - task: Maven@4
-#   inputs:
-#     mavenPomFile: 'pom.xml'
-#     goals: 'clean install'
-#     publishJUnitResults: false
-#     javaHomeOption: 'JDKVersion'
-#     mavenVersionOption: 'Default'
-#     mavenAuthenticateFeed: false
-#     effectivePomSkip: false
-#     sonarQubeRunAnalysis: false
-    
-# - task: Docker@2
-#   inputs:
-#     command: 'build'
-#     Dockerfile: '**/Dockerfile'
-#     repository: 'webgoat'
-#     tags: $(Build.BuildId)
-
-# - script: |
-#     docker images
-#   displayName: Validate Docker Image
-
-# - script: mkdir $(System.DefaultWorkingDirectory)/wiz
-
-- task: wiz@0
+- task: JavaToolInstaller@1
   inputs:
-    command: 'image'
-    clientid: $(WIZ_CLIENT_ID)
-    secret: $(WIZ_CLIENT_SECRET)
-    succeedOnFailures: false
-    policyHitsOnly: true
-    scanTags: 'node'
-    image: 'node:22'
-    # scanTags: 'cicd=ado,webgoat'
-    # image: webgoat:$(Build.BuildId)
-    # scanPolicies: 'vuln-one-critical, vuln-two-high'
-    output: '$(System.DefaultWorkingDirectory)/wiz-output.json,json'
-    scanSecrets: false
-    sensitiveData: true
-    driver: 'mountWithLayers'
-    sudo: true
-  continueOnError: true
+    versionSpec: '21'
+    jdkArchitectureOption: 'x64'
+    jdkSourceOption: 'PreInstalled'
 
-- script: ls $(System.DefaultWorkingDirectory) && cat $(System.DefaultWorkingDirectory)/wiz-output.json
-
-
-- task: PublishPipelineArtifact@1
+- task: Maven@4
   inputs:
-    targetPath: '$(System.DefaultWorkingDirectory)/wiz-output.json'
-    artifact: 'security-tools'
-    publishLocation: 'pipeline'
+    mavenPomFile: 'pom.xml'
+    goals: 'clean install'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
 
+- task: Docker@2
+  inputs:
+    command: 'build'
+    repository: 'webgoat'
+    Dockerfile: '**/Dockerfile'
+    tags: $(Build.BuildId)
 
+- script: |
+    docker images
+  displayName: Validate Docker Image
 
 # - task: wiz@0
 #   inputs:
-#     command: 'tag'
+#     command: 'image'
 #     clientid: $(WIZ_CLIENT_ID)
 #     secret: $(WIZ_CLIENT_SECRET)
+#     succeedOnFailures: false
+#     policyHitsOnly: true
+#     # scanTags: 'node'
+#     # image: 'node:22'
+#     scanTags: 'cicd=ado,webgoat'
 #     image: webgoat:$(Build.BuildId)
-#   continueOnError: true
+#     # scanPolicies: 'vuln-one-critical, vuln-two-high'
+#     output: '$(System.DefaultWorkingDirectory)/wiz-output.json,json'
+#     scanSecrets: false
+#     sensitiveData: true
+#     driver: 'mountWithLayers'
+#     sudo: true
+#   # continueOnError: true
+
+# - task: PublishPipelineArtifact@1
+#   inputs:
+#     targetPath: '$(System.DefaultWorkingDirectory)/wiz-output.json'
+#     artifact: 'security-tools'
+#     publishLocation: 'pipeline'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'Docker Hub'
+    command: 'push'
+    repository: 'webgoat'
+    tags: $(Build.BuildId)
+
+- task: wiz@0
+  inputs:
+    command: 'tag'
+    clientid: $(WIZ_CLIENT_ID)
+    secret: $(WIZ_CLIENT_SECRET)
+    image: webgoat:$(Build.BuildId)
+  continueOnError: true
